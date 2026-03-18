@@ -578,11 +578,11 @@ server.tool(
   async () => {
     const resp = await mjFetch('/v3/REST/myprofile');
     const data = (await assertOk(resp, 'Get profile')) as {
-      Data: Array<{ ID: number; Email: string; FirstName: string; LastName: string; CompanyName: string; Country: string }>;
+      Data: Array<{ ID: number; Firstname: string; Lastname: string; CompanyName: string; AddressCountry: string; AddressCity: string; ContactPhone: string }>;
     };
     const p = data.Data[0];
     if (!p) throw new Error('Profile not found');
-    return textResult(`**${p.FirstName} ${p.LastName}**\nEmail: ${p.Email}\nCompany: ${p.CompanyName || 'none'}\nCountry: ${p.Country || 'unknown'}\nID: ${p.ID}`);
+    return textResult(`**${p.Firstname} ${p.Lastname}**\nCompany: ${p.CompanyName || 'none'}\nLocation: ${p.AddressCity || '?'}, ${p.AddressCountry || '?'}\nPhone: ${p.ContactPhone || 'none'}\nID: ${p.ID}`);
   },
 );
 
